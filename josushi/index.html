@@ -65,6 +65,9 @@ h1 small{display:block;font-family:var(--f-mono);font-size:.62rem;font-weight:50
 .stage{position:relative;padding:8px 4px 0;flex:1;min-height:0;display:flex;flex-direction:column}
 .floors{flex:1;min-height:0;align-content:center}
 .dim{display:flex;align-items:center;gap:8px;margin:0 2px 12px;font-family:var(--f-mono);font-size:.64rem;color:var(--sub);letter-spacing:.1em}
+.qno{display:flex;align-items:baseline;gap:10px;white-space:nowrap}
+.qno b{font-size:2rem;font-weight:600;line-height:1;color:var(--ink);letter-spacing:0;font-variant-numeric:tabular-nums;text-shadow:0 0 12px var(--accent)}
+.qno .of{font-size:.95rem;color:var(--ink);letter-spacing:.04em;margin-left:2px}
 .dim::before,.dim::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent)}
 .floors{display:flex;flex-wrap:wrap;justify-content:center;gap:44px 10px;position:relative;padding-top:24px}
 .floors::before{content:"";position:absolute;left:-30%;right:-30%;top:50%;height:min(78%,150px);translate:0 -50%;border-radius:50%;
@@ -110,6 +113,12 @@ h1 small{display:block;font-family:var(--f-mono);font-size:.62rem;font-weight:50
 @keyframes pop{from{transform:scale(.4) rotate(-6deg);opacity:0}}
 .head.ok{color:var(--ok)} .head.ng{color:var(--ng)}
 .ans{font-family:var(--f-disp);font-weight:800;font-size:1.2rem}
+.right{display:flex;align-items:center;flex-wrap:wrap;gap:6px 14px;border:1.5px solid var(--ok);background:var(--ok-soft);border-radius:12px;padding:8px 14px}
+.right .lab{font-size:.78rem;font-weight:700;color:var(--ok);line-height:1.3}
+.right .lab .en{display:block;color:var(--ok);opacity:.8}
+.right .kk{font-family:var(--f-disp);font-weight:800;font-size:2rem;line-height:1.1;color:var(--ok);text-shadow:0 0 14px rgba(147,227,187,.45)}
+.right .kk small{font-family:var(--f-body);font-size:.75rem;font-weight:500;color:var(--ink);margin-left:4px;text-shadow:none}
+.pick{font-size:.82rem;color:var(--ng);margin:0}
 .note{font-size:.88rem;color:var(--ink);margin:0;opacity:.9}
 .note.en{color:var(--sub);opacity:1}
 .btn{appearance:none;border:1.5px solid var(--neon);background:var(--neon);color:#2a0b18;font:inherit;font-weight:700;box-shadow:0 0 18px -2px var(--neon);
@@ -154,6 +163,7 @@ details.rules summary{cursor:pointer;font-weight:700;font-size:.9rem}
   text-shadow:0 0 14px rgba(147,227,187,.6);pointer-events:none;white-space:nowrap;animation:toast 1s ease-out forwards}
 .toast.ngt{color:var(--ng);text-shadow:0 0 14px rgba(255,163,148,.5);font-size:1.05rem;animation-duration:1.1s}
 @keyframes toast{0%{opacity:0;transform:scale(.5)}20%{opacity:1;transform:scale(1.1)}70%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-16px)}}
+.shareTxt{width:100%;min-height:5.5em;margin-top:8px;background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:8px;font:inherit;font-size:.82rem}
 .misses{margin:4px 0 0;padding:0;list-style:none;font-size:.85rem;display:flex;flex-direction:column;gap:2px}
 .misses li{display:flex;justify-content:space-between;gap:8px;border-bottom:1px dashed var(--line);padding:2px 0}
 .misses b{font-family:var(--f-disp)}
@@ -278,7 +288,7 @@ const Q=[
  {lv:1,item:"バット",img:"bat",yomi:"ばっと",en:"Baseball bat",icon:"🏏",ok:["本"],ng:["振","丁","枚","挺"],note:"細長いものなので「本」。「振」はバットを振る回数のほうです。",enNote:"Long and thin, so 本 (hon). 振 counts swings, not bats."},
  {lv:2,item:"ラーメン",img:"ramen",yomi:"らーめん",en:"Ramen",icon:"🍜",ok:["杯"],ng:["玉","本","枚","膳"],note:"どんぶりに入ったラーメンは「杯」。「玉」はゆでる前の麺のかたまりで、替え玉の「玉」です。",enNote:"A bowl of ramen is 杯 (hai). 玉 counts noodle portions before serving, as in kaedama refills."},
  {lv:2,item:"ソフトクリーム",img:"soft",yomi:"そふとくりーむ",en:"Soft-serve cone",icon:"🍦",ok:["本","個"],ng:["杯","枚","丁","脚"],note:"コーンを持つ形から「本」。「個」でもよく数えます。",enNote:"Held like a stick, so 本 (hon). 個 is common too."},
- {lv:2,item:"ぶどう（ひと房）",img:"grape",yomi:"ぶどう",en:"Bunch of grapes",icon:"🍇",ok:["房"],ng:["粒","本","枚","束"],note:"ひとかたまりは「房（ふさ）」。一つぶずつなら「粒」です。",enNote:"A bunch is 房 (fusa). Single grapes are 粒 (tsubu)."},
+ {lv:2,item:"ぶどう（まるごと）",img:"grape",yomi:"ぶどう",en:"Bunch of grapes",icon:"🍇",ok:["房"],ng:["粒","本","枚","束"],note:"ひとかたまりは「房（ふさ）」。一つぶずつなら「粒」です。",enNote:"A bunch is 房 (fusa). Single grapes are 粒 (tsubu)."},
  {lv:2,item:"着物",img:"kimono",yomi:"きもの",en:"Kimono",icon:"👘",ok:["着","枚"],ng:["反","本","腰","張"],note:"服は「着（ちゃく）」。着物は「枚」でも数えます。「反」は仕立てる前の反物です。",enNote:"Clothing uses 着 (chaku); kimono also use 枚. 反 counts the uncut bolt of cloth."},
  {lv:2,item:"扇子",img:"sensu",yomi:"せんす",en:"Folding fan",icon:"🪭",ok:["本","面"],ng:["枚","張","丁","挺"],note:"たたむと細長いので「本」。広げた面を使うことから「面（めん）」とも数えます。",enNote:"Long and thin when folded, so 本 (hon). Also 面 (men), for its open face."},
  {lv:2,item:"だるま",img:"daruma",yomi:"だるま",en:"Daruma doll",icon:"🎎",ok:["体","個"],ng:["頭","基","本","台"],note:"人形や置物は「体（たい）」。「個」でも数えます。",enNote:"Dolls and figurines use 体 (tai). 個 also works."},
@@ -316,7 +326,7 @@ const Q=[
  {lv:3,item:"山",img:"fuji",yomi:"やま",en:"Mountain",icon:"🗻",ok:["座"],ng:["基","棟","本","面"],note:"山は「座（ざ）」。どっしり座っている姿から。",enNote:"Mountains use 座 (za, \"seat\"), as if sitting firmly in place."}
 ];
 const SVG={
- katana:`<svg viewBox="0 0 48 48"><path d="M15 33 Q33 24 44 4" stroke="#eef2f9" stroke-width="3.4" fill="none" stroke-linecap="round"/><path d="M16.5 34.5 Q33.5 26 45 6" stroke="#9fb0cc" stroke-width="1" fill="none"/><ellipse cx="14" cy="35" rx="5.5" ry="2.4" transform="rotate(-40 14 35)" fill="#d6b56f"/><line x1="12" y1="37.5" x2="4" y2="45" stroke="#2c2440" stroke-width="5" stroke-linecap="round"/><line x1="11" y1="38.5" x2="5" y2="44" stroke="#f2ead8" stroke-width="5" stroke-dasharray="1.6 2.6"/></svg>`,
+ katana:`<svg viewBox="0 0 48 48"><path d="M5 43 Q27.3 27.3 44 6" pathLength="100" stroke="#eef2f9" stroke-width="3.4" fill="none" stroke-dasharray="0 23 100"/><path d="M5 43 Q27.3 27.3 44 6" pathLength="100" transform="translate(.9 .9)" stroke="#9fb0cc" stroke-width="1" fill="none" stroke-dasharray="0 26 70 100"/><path d="M42.66 4.95 L45.27 2.93 Q46.3 5 45.34 7.05Z" fill="#eef2f9"/><path d="M5 43 Q27.3 27.3 44 6" pathLength="100" stroke="#2c2440" stroke-width="5" fill="none" stroke-linecap="round" stroke-dasharray="21 200"/><path d="M5 43 Q27.3 27.3 44 6" pathLength="100" stroke="#f2ead8" stroke-width="5" fill="none" stroke-dasharray="0 2 2.5 2.5 2.5 2.5 2.5 2.5 2.5 200"/><ellipse cx="14.5" cy="35.8" rx="5" ry="1.9" transform="rotate(51.2 14.5 35.8)" fill="#d6b56f"/></svg>`,
  koto:`<svg viewBox="0 0 48 48"><g transform="rotate(-18 24 24)"><rect x="2" y="17" width="44" height="14" rx="4" fill="#d8b685"/><rect x="2" y="17" width="44" height="3" rx="1.5" fill="#e8cfa4"/><g stroke="#fff8ea" stroke-width=".7"><line x1="5" y1="21.5" x2="43" y2="21.5"/><line x1="5" y1="24" x2="43" y2="24"/><line x1="5" y1="26.5" x2="43" y2="26.5"/><line x1="5" y1="29" x2="43" y2="29"/></g><g fill="#f6f1e6"><path d="M12 22.5l1.5-3 1.5 3z"/><path d="M20 25l1.5-3 1.5 3z"/><path d="M28 27.5l1.5-3 1.5 3z"/><path d="M35 23l1.5-3 1.5 3z"/></g><rect x="40" y="17" width="3" height="14" fill="#8a5d3b"/></g></svg>`,
  tofu:`<svg viewBox="0 0 48 48"><path d="M8 19 L24 11 L40 19 L24 27Z" fill="#fcfbf6"/><path d="M8 19 L24 27 L24 40 L8 32Z" fill="#e4e1d7"/><path d="M40 19 L24 27 L24 40 L40 32Z" fill="#cdc9bd"/></svg>`,
  yokan:`<svg viewBox="0 0 48 48"><path d="M5 23 L31 12 L43 17 L17 28Z" fill="#874a4e"/><path d="M5 23 L17 28 L17 37 L5 32Z" fill="#62333a"/><path d="M17 28 L43 17 L43 26 L17 37Z" fill="#522a30"/><path d="M8 23 L31 13.5" stroke="#b07075" stroke-width=".8"/></svg>`,
@@ -348,6 +358,7 @@ $("yomiChk").onchange=e=>store.set("kz_yomi",e.target.checked?"1":"0");
 const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
 const rd=(k,q)=>(q&&q.rd&&q.rd[k])||YOMI[k]||"", ro=(k,q)=>ROMA[rd(k,q)]||"";
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
+const qnoHTML=(n,of,sub)=>`<span class="qno"><span><b>${n}</b><span class="of">${of}</span></span><span>${sub}</span></span>`;
 
 /* ---- starfield ---- */
 const cv=$("space"),cx=cv.getContext("2d");let stars=[],warp=1;
@@ -446,8 +457,12 @@ function layout(){
   });
 }
 addEventListener("resize",()=>{sizeSky();layout()});
-function copyBtn(text){$("copyBtn").onclick=e=>{const b=e.currentTarget;
-  navigator.clipboard.writeText(text).then(()=>b.textContent="コピーしました").catch(()=>{b.textContent=text})}}
+const GAME_URL="https://kreatio-works.github.io/games/josushi/";
+function shareBtn(text){$("shareBtn").onclick=async e=>{const b=e.currentTarget;
+  if(navigator.share){try{await navigator.share({title:"JOSUSHI",text,url:GAME_URL});return}catch(err){if(err&&err.name==="AbortError")return}}
+  const all=text+"\n"+GAME_URL;
+  try{await navigator.clipboard.writeText(all);b.innerHTML="コピーしました<small>COPIED</small>"}
+  catch(err){const t=document.createElement("textarea");t.value=all;t.readOnly=true;t.className="shareTxt";b.after(t);t.select();b.hidden=true}}}
 function readyScreen(){
   $("qIcon").innerHTML=`<svg viewBox="0 0 44 36" style="width:44px;height:36px">${NETA[cfg.neta]}</svg>`;
   $("qName").innerHTML="READY?<small>まもなく発進</small>";$("qEn").textContent="Get ready";
@@ -481,7 +496,7 @@ function nextQ(){
   if(S.qi>=TOTAL)return finish(true);
   const q=S.list[S.qi],n=q.lv+2;
   showQ(q,n,move);
-  $("dim").textContent=`SECTOR ${String(S.qi+1).padStart(2,"0")}/${TOTAL} ・ ROUND ${q.lv} ・ ${n}択`;
+  $("dim").innerHTML=qnoHTML(S.qi+1,`/${TOTAL}問`,`ROUND ${q.lv} ・ ${n}択`);
   $("result").hidden=true;updateMeta();
   S.phase="play";const T=cfg.sec.cpu*1000,t0=performance.now();
   const tick=now=>{const left=Math.max(0,T-(now-t0));
@@ -518,11 +533,13 @@ function showResult(){
   const ans=q.ok.map(k=>`${k}（${rd(k,q)} / ${ro(k,q)}）`).join("・");
   const multi=S.opts.filter(k=>q.ok.includes(k)).length>1;
   const cpuLeft=S.pawns.filter(p=>!p.you&&p.alive).length;
+  const pick=you.tile===null?null:S.opts[you.tile];
   if(you.alive)$("target").classList.add("boom");
   const last=S.qi+1>=TOTAL;
   r.innerHTML=`${multi?`<div class="both">どっちも正解！<span class="en">Both were right!</span></div>`:""}
    <div class="head ${you.alive?"ok":"ng"}">${you.alive?"クリア！ <span class='en'>Cleared</span>":"宇宙へ流された… <span class='en'>Lost in space</span>"}</div>
-   <div class="ans">${q.item} ＝ ${ans}</div>
+   ${you.alive?`<div class="ans">${q.item} ＝ ${ans}</div>`:`<div class="right"><span class="lab">「${q.item}」の正解<span class="en">Answer</span></span>${q.ok.map(k=>`<span class="kk">${k}<small>${rd(k,q)} / ${ro(k,q)}</small></span>`).join("")}</div>
+   <p class="pick">${pick===null?"時間切れ（皿を選べなかった） / Time ran out":`あなたの選択：${pick}（${rd(pick,q)}） / Your pick: ${pick}`}</p>`}
    <p class="note">${q.note}</p>
    <p class="note en">${q.enNote}</p>
    <p class="note en">のこりのライバル / Rivals left: ${cpuLeft}</p>
@@ -549,17 +566,17 @@ function finish(clear){
   const r=$("result");
   r.innerHTML=`<div class="head ${clear?"ok":"ng"}">${clear?"全セクター突破！ <span class='en'>All clear</span>":"ゲームオーバー <span class='en'>Game over</span>"}</div>
    <div class="en" style="letter-spacing:.2em">本日のお会計 / YOUR BILL</div><div class="big">${cleared}<small> 皿 / 15</small></div>
-   <p class="note">${clear?`最後まで残ったのはあなたを含め ${rank} 人。`:`ROUND ${S.q.lv}「${S.q.item}」で落下。`} ベスト記録：${best}</p>
-   <button class="btn" id="againBtn">もう一度<small>RETRY</small></button>
-   <div class="row center"><button class="btn ghost" id="copyBtn">伝票をコピー</button><button class="btn ghost" id="homeBtn2">ホーム<small>HOME</small></button></div>`;
+   <p class="note">${clear?`最後まで残ったのはあなたを含め ${rank} 人。`:`ROUND ${S.q.lv}「${S.q.item}」で落下。正解は「${S.q.ok.map(k=>`${k}（${rd(k,S.q)}）`).join("・")}」。`} ベスト記録：${best}</p>
+   <button class="btn" id="shareBtn">結果をシェア<small>SHARE</small></button>
+   <div class="row center"><button class="btn ghost" id="againBtn">もう一度<small>RETRY</small></button><button class="btn ghost" id="homeBtn2">ホーム<small>HOME</small></button></div>`;
   r.hidden=false;updateMeta();
   $("againBtn").onclick=startGame;$("homeBtn2").onclick=goHome;
-  copyBtn(`JOSUSHI【CPU対戦】本日のお会計：${cleared}皿${clear?"（全皿クリア！）":""} / VS CPU: ${cleared}/15 plates`);
+  shareBtn(`JOSUSHI【CPU対戦】${cleared}/15皿${clear?" 全皿クリア！":""}\n宇宙の回転寿司で、日本語の数え方（助数詞）クイズ。\nVS CPU: ${cleared}/15 plates #JOSUSHI`);
 }
 
 /* ---- TIME ATTACK ---- */
 function startTA(){
-  S={mode:"ta",pool:[],score:0,miss:[],pawns:makePawns(false),phase:"play",total:cfg.sec.ta*1000,t0:performance.now(),lastGrp:null};
+  S={mode:"ta",pool:[],score:0,qn:0,miss:[],pawns:makePawns(false),phase:"play",total:cfg.sec.ta*1000,t0:performance.now(),lastGrp:null};
   enterPlay();updateMeta();readyScreen();S.phase="ready";
   const me=S;countdown().then(ok=>{if(!ok)return;S.t0=performance.now();nextTA();raf=requestAnimationFrame(tick)});
   const tick=now=>{if(S!==me)return;const left=Math.max(0,S.total-(now-S.t0));
@@ -573,7 +590,7 @@ function nextTA(){
   let i=S.pool.findIndex(q=>q.lv<=lv&&!(q.grp&&q.grp===S.lastGrp));if(i<0)i=0;
   const q=S.pool.splice(i,1)[0];S.lastGrp=q.grp||null;
   showQ(q,n,tapTA);
-  $("dim").textContent=`TIME ATTACK ・ ${S.score}皿 ・ ${n}択`;
+  S.qn++;$("dim").innerHTML=qnoHTML(S.qn,"問目",`${S.score}皿正解 ・ ${n}択`);
   S.phase="play";
 }
 async function tapTA(i){
@@ -607,11 +624,11 @@ function finishTA(){
    <p class="note">${isNew?"ベスト更新！ ":""}ベスト記録：${best}皿 <span class="en">Best: ${best}</span></p>
    ${miss.length?`<div class="flabel" style="margin:6px 0 0">間違えた数え方 <span class="en">Review</span></div>
    <ul class="misses">${miss.slice(0,8).map(q=>`<li><span>${q.item}</span><b>${q.ok.map(k=>`${k}（${rd(k,q)}）`).join("・")}</b></li>`).join("")}</ul>`:""}
-   <button class="btn" id="againBtn">もう一度<small>RETRY</small></button>
-   <div class="row center"><button class="btn ghost" id="copyBtn">伝票をコピー</button><button class="btn ghost" id="homeBtn2">ホーム<small>HOME</small></button></div>`;
+   <button class="btn" id="shareBtn">結果をシェア<small>SHARE</small></button>
+   <div class="row center"><button class="btn ghost" id="againBtn">もう一度<small>RETRY</small></button><button class="btn ghost" id="homeBtn2">ホーム<small>HOME</small></button></div>`;
   r.hidden=false;updateMeta();
   $("againBtn").onclick=startGame;$("homeBtn2").onclick=goHome;
-  copyBtn(`JOSUSHI【タイムアタック${cfg.sec.ta}秒】本日のお会計：${S.score}皿 / Time attack ${cfg.sec.ta}s: ${S.score} plates`);
+  shareBtn(`JOSUSHI【タイムアタック${cfg.sec.ta}秒】${S.score}皿正解！\n宇宙の回転寿司で、日本語の数え方（助数詞）クイズ。\nTime attack ${cfg.sec.ta}s: ${S.score} plates #JOSUSHI`);
 }
 </script>
 
